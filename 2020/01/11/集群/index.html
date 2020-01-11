@@ -19,12 +19,12 @@ var _hmt = _hmt || [];
   <link rel="dns-prefetch" href="https://zyk199712.github.io">
   <title>集群 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、负载均衡 负载均衡算法 转发实现   二、集群下的 Session 管理 Sticky Session Session Replication Session Server    本文转载自CyC2018 一、负载均衡集群中的应用服务器（节点）通常被设计成无状态，用户可以请求任何一个节点。 负载均衡器会根据集群中每个节点的负载情况，将用户请求转发到合适的节点上。 负载均衡器可以用来实现高">
+  <meta name="description" content="本文转载自CyC2018 一、负载均衡集群中的应用服务器（节点）通常被设计成无状态，用户可以请求任何一个节点。 负载均衡器会根据集群中每个节点的负载情况，将用户请求转发到合适的节点上。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="集群">
 <meta property="og:url" content="https://zyk199712.github.io/2020/01/11/%E9%9B%86%E7%BE%A4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、负载均衡 负载均衡算法 转发实现   二、集群下的 Session 管理 Sticky Session Session Replication Session Server    本文转载自CyC2018 一、负载均衡集群中的应用服务器（节点）通常被设计成无状态，用户可以请求任何一个节点。 负载均衡器会根据集群中每个节点的负载情况，将用户请求转发到合适的节点上。 负载均衡器可以用来实现高">
+<meta property="og:description" content="本文转载自CyC2018 一、负载均衡集群中的应用服务器（节点）通常被设计成无状态，用户可以请求任何一个节点。 负载均衡器会根据集群中每个节点的负载情况，将用户请求转发到合适的节点上。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200111104748980.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDI3OTA2,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200111105239879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDI3OTA2,size_16,color_FFFFFF,t_70">
@@ -39,7 +39,7 @@ var _hmt = _hmt || [];
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200111105540110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDI3OTA2,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200111105602851.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDI3OTA2,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-01-11T03:40:09.000Z">
-<meta property="article:modified_time" content="2020-01-11T03:44:19.386Z">
+<meta property="article:modified_time" content="2020-01-11T03:47:05.250Z">
 <meta property="article:author" content="Skywalker">
 <meta property="article:tag" content="-spring">
 <meta name="twitter:card" content="summary">
@@ -226,24 +226,11 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-
-<ul>
-<li><a href="#一负载均衡">一、负载均衡</a><ul>
-<li><a href="#负载均衡算法">负载均衡算法</a></li>
-<li><a href="#转发实现">转发实现</a></li>
-</ul>
-</li>
-<li><a href="#二集群下的-session-管理">二、集群下的 Session 管理</a><ul>
-<li><a href="#sticky-session">Sticky Session</a></li>
-<li><a href="#session-replication">Session Replication</a></li>
-<li><a href="#session-server">Session Server</a></li>
-</ul>
-</li>
-</ul>
-<p>本文转载自<a href="https://cyc2018.github.io/CS-Notes/#/notes/%E9%9B%86%E7%BE%A4" target="_blank" rel="noopener">CyC2018</a></p>
+        <p>本文转载自<a href="https://cyc2018.github.io/CS-Notes/#/notes/%E9%9B%86%E7%BE%A4" target="_blank" rel="noopener">CyC2018</a></p>
 <h1 id="一、负载均衡"><a href="#一、负载均衡" class="headerlink" title="一、负载均衡"></a>一、负载均衡</h1><p>集群中的应用服务器（节点）通常被设计成无状态，用户可以请求任何一个节点。</p>
 <p>负载均衡器会根据集群中每个节点的负载情况，将用户请求转发到合适的节点上。</p>
+<a id="more"></a>
+
 <p>负载均衡器可以用来实现高可用以及伸缩性：</p>
 <ul>
 <li>高可用：当某个节点故障时，负载均衡器会将用户请求转发到另外的节点上，从而保证所有服务持续可用；</li>
